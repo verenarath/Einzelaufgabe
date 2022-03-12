@@ -43,17 +43,16 @@
 
     <TextView
         android:id="@+id/Ausgabe"
-        android:layout_width="259dp"
-        android:layout_height="133dp"
+        android:layout_width="230dp"
+        android:layout_height="236dp"
         android:layout_marginStart="124dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="30dp"
         android:text="Ausgabe"
         android:textColor="#000000"
         android:textSize="40px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
