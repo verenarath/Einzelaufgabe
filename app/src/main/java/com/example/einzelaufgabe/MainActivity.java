@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void serverConnection (){
         Thread thread = new Thread(new Runnable() {
             @Override
