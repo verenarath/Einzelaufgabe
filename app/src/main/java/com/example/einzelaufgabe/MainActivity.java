@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button berechnen;
+    Button Berechnen;
     Button ServerAnfrage;
     EditText Matrikelnummer;
     TextView Ausgabefeld;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        berechnen = findViewById(R.id.calculatebutton);
+        Berechnen = findViewById(R.id.calculatebutton);
         ServerAnfrage = findViewById(R.id.ServerButton);
         Matrikelnummer = findViewById(R.id.MartrikelnummerEingabe);
         Ausgabefeld = findViewById(R.id.Ausgabe);
@@ -33,10 +33,42 @@ public class MainActivity extends AppCompatActivity {
             serverConnection();
 
         });
-
-
+       Berechnen.setOnClickListener(view -> {
+           gemeinsamerTeiler();
+       });
     }
 
+    public void gemeinsamerTeiler (){
+
+        String Ergebnis = "";
+
+
+        for (int i = 0; i < Matrikelnummer.length(); i++){
+            for (int k = 0; k < Matrikelnummer.length(); k++){
+                int ggT = berechnenGGT(Integer.parseInt(String.valueOf(Matrikelnummer.getText().toString().charAt(i))), Integer.parseInt(String.valueOf(Matrikelnummer.getText().toString().charAt(k))));
+                if (ggT > 1){
+                    Ergebnis += "ggT (" + i + " ," + k + ")  ";
+                }
+            }
+        }
+            Ausgabefeld.setText(Ergebnis);
+    }
+
+    public int berechnenGGT (int i, int k){
+        if (i == 0){
+            return k;
+        }
+
+        while (k != 0 ){
+            if (i > k) {
+                i = i-k;
+            }
+            else {
+                k = k - i;
+            }
+        }
+        return i;
+    }
 
     public void serverConnection (){
         Thread thread = new Thread(new Runnable() {
