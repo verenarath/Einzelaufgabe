@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     EditText Matrikelnummer;
     TextView Ausgabefeld;
     String Antwort;
-
+    Button button;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Berechnen = findViewById(R.id.calculatebutton);
         ServerAnfrage = findViewById(R.id.ServerButton);
         Matrikelnummer = findViewById(R.id.MartrikelnummerEingabe);
+        button = findViewById(R.id.button);
         Ausgabefeld = findViewById(R.id.Ausgabe);
         ServerAnfrage.setOnClickListener(view -> {
             serverConnection();
@@ -36,27 +37,36 @@ public class MainActivity extends AppCompatActivity {
        Berechnen.setOnClickListener(view -> {
            gemeinsamerTeiler();
        });
+
+       button.setOnClickListener(view -> {
+           hellomethod();
+       });
+    }
+
+    void hellomethod (){
+        Ausgabefeld.setText("Hello");
     }
 
     public void gemeinsamerTeiler (){
 
         String Ergebnis = "";
 
-
         for (int i = 0; i < Matrikelnummer.length(); i++){
             for (int k = 0; k < Matrikelnummer.length(); k++){
                 int ggT = berechnenGGT(Integer.parseInt(String.valueOf(Matrikelnummer.getText().toString().charAt(i))), Integer.parseInt(String.valueOf(Matrikelnummer.getText().toString().charAt(k))));
-                if (ggT > 1){
+                if (ggT > 1 && i != k) {
                     Ergebnis += "ggT (" + i + " ," + k + ")  ";
                 }
+
             }
         }
             Ausgabefeld.setText(Ergebnis);
     }
 
+
     public int berechnenGGT (int i, int k){
         if (i == 0){
-            return k;
+            return 0;
         }
 
         while (k != 0 ){
@@ -75,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+
                     Socket serverSocket = new Socket("se2-isys.aau.at", 53212);
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
                     DataOutputStream outputStream = new DataOutputStream(serverSocket.getOutputStream());
